@@ -3,47 +3,69 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Rahasa — مهاجرت تحصیلی و کاری اروپا</title>
-  <meta name="description" content="خدمات مهاجرتی، اپلای، ویزا، بورسیه تحصیلی و اقامت اروپا برای دانشجویان و متخصصان" />
+  <title>Rahasa — مهاجرت تحصیلی، کاری و سرمایه‌گذاری در اروپا</title>
+  <meta name="description" content="Rahasa — خدمات مهاجرت تحصیلی، کاری و سرمایه‌گذاری در اروپا، همراه با بورسیه، ویزا، اقامت و مشاوره حقوقی تخصصی." />
+
+  <!-- Google Fonts: Vazirmatn (Farsi) + Poppins (Latin) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Vazirmatn:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root{
       --blue:#1e66ff;
       --blue-2:#4da3ff;
-      --text:#003366;
-      --bg:#ffffff;
+      --text:#0b2340;
+      --bg:#f4f7ff;
       --muted:#5b6b7a;
+      --card:#f9fbff;
     }
 
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;height:100%;scroll-behavior:smooth}
-    body{font-family:'Segoe UI',system-ui,Arial;background:var(--bg);color:var(--text)}
+    body{
+      font-family:'Vazirmatn','Poppins',system-ui,Arial;
+      background:radial-gradient(circle at top,#e8f0ff 0,#f8fbff 40%,#ffffff 100%);
+      color:var(--text);
+    }
 
     /* Header */
     header{
-      position:fixed;
-      left:0; right:0; top:0;
-      background:rgba(255,255,255,.9);
-      -webkit-backdrop-filter:blur(8px);
-      backdrop-filter:blur(8px);
+      position:fixed; left:0; right:0; top:0;
+      background:rgba(255,255,255,.92);
+      -webkit-backdrop-filter:blur(12px);
+      backdrop-filter:blur(12px);
       z-index:1000;
-      border-bottom:1px solid rgba(0,0,0,.06);
+      border-bottom:1px solid rgba(0,0,0,.04);
     }
     .header-inner{
-      max-width:1100px; margin:0 auto; padding:12px 16px;
+      max-width:1100px; margin:0 auto; padding:10px 16px;
       display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:12px;
     }
 
-    /* Logo glow per-letter (via JS) */
-    .logo{font-weight:800;font-size:1.8rem;color:var(--blue);letter-spacing:.5px}
-    .logo-ch{display:inline-block;color:var(--blue);transition:color .25s ease, text-shadow .25s ease}
-    .logo-ch.on{color:#ffffff;text-shadow:0 0 10px rgba(30,102,255,1),0 0 20px rgba(30,102,255,.8),0 0 32px rgba(77,163,255,.6)}
+    /* Logo + per-letter glow */
+    .logo{
+      font-weight:800;
+      font-size:1.8rem;
+      color:var(--blue);
+      letter-spacing:.4px;
+      cursor:default;
+      user-select:none;
+      direction:ltr;
+      unicode-bidi:bidi-override;
+    }
+    .logo-ch{display:inline-block;color:var(--blue);transition:color .25s ease, text-shadow .25s ease, transform .25s}
+    .logo-ch.on{
+      color:#ffffff;
+      text-shadow:0 0 10px rgba(30,102,255,1),0 0 20px rgba(30,102,255,.8),0 0 32px rgba(77,163,255,.6);
+      transform:translateY(-1px);
+    }
 
     /* Centered nav */
     nav{display:flex; gap:16px; align-items:center; justify-content:center}
     nav a{
       position:relative; text-decoration:none; color:var(--text); font-weight:500;
-      padding:6px 8px; border-radius:8px;
+      padding:6px 8px; border-radius:8px; font-size:.9rem;
     }
     nav a::after{
       content:""; position:absolute; left:8px; right:8px; bottom:2px; height:2px;
@@ -51,87 +73,209 @@
     }
     nav a:hover::after{ transform:scaleX(1) }
 
-    .lang-switch{
-      display:inline-flex; align-items:center; gap:8px;
-      border:1px solid rgba(0,0,0,.08); padding:6px 10px; border-radius:10px;
-      cursor:pointer; user-select:none; font-weight:700; color:var(--blue); background:#f6f9ff;
-    }
     .controls{display:flex;justify-content:flex-end;gap:10px;align-items:center}
-    .burger{display:none; border:0; background:transparent; font-size:22px; line-height:1}
+    .lang-switch{
+      display:inline-flex; align-items:center; gap:6px;
+      border:1px solid rgba(0,0,0,.08); padding:6px 10px; border-radius:999px;
+      cursor:pointer; user-select:none; font-weight:700; color:var(--blue);
+      background:#f6f9ff; font-size:.8rem;
+    }
+    .lang-switch span{opacity:.7}
+    .lang-switch span.active{opacity:1}
+
+    .burger{display:none; border:0; background:transparent; font-size:22px; line-height:1; cursor:pointer}
 
     /* HERO */
     .hero{position:relative; height:100vh; overflow:hidden}
     .hero video{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0}
-    .hero::after{content:""; position:absolute; inset:0; background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,.45)); z-index:1}
+    .hero::after{content:""; position:absolute; inset:0; background:linear-gradient(180deg,rgba(2,17,43,.55),rgba(4,29,66,.8)); z-index:1}
     .hero-inner{
-      position:relative; z-index:2; max-width:900px; margin:0 auto; padding:0 16px;
-      display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%;
+      position:relative; z-index:2; max-width:980px; margin:0 auto; padding:0 16px;
+      display:flex; flex-direction:column; align-items:flex-start; justify-content:center; height:100%;
     }
-    .hero h1{color:#fff; text-align:center; font-size:2.4rem; margin:0 0 12px}
-    .hero p{color:#e8eefc; text-align:center; margin:0}
+    .hero-kicker{
+      display:inline-flex; align-items:center; gap:6px;
+      padding:4px 10px; border-radius:999px;
+      background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.3);
+      color:#e8efff; font-size:.78rem; margin-bottom:10px;
+    }
+    .hero h1{
+      color:#fff; text-align:start; font-size:2.6rem; margin:0 0 10px; line-height:1.2;
+    }
+    .hero h1 span.accent{color:#9bc5ff}
+    .hero p{
+      color:#dfe7ff; text-align:start; margin:0;
+      max-width:520px; font-size:.98rem;
+    }
 
     /* Buttons */
-    .cta-buttons{display:flex; gap:12px; justify-content:center; margin-top:22px; flex-wrap:wrap}
+    .cta-buttons{display:flex; gap:12px; flex-wrap:wrap; margin-top:24px}
     .btn{
-      position:relative; display:inline-block; padding:12px 18px; border-radius:12px;
+      position:relative; display:inline-flex; align-items:center; justify-content:center;
+      gap:6px;
+      padding:11px 18px; border-radius:999px;
       font-weight:700; text-decoration:none; cursor:pointer;
-      transition: transform .2s, box-shadow .2s; -webkit-tap-highlight-color:transparent;
+      transition: transform .2s, box-shadow .2s, background .2s; -webkit-tap-highlight-color:transparent;
+      font-size:.9rem;
+      overflow:hidden;
     }
-    .btn:active{transform:scale(.98)}
-    .btn-primary{color:#fff; background:linear-gradient(135deg,var(--blue),var(--blue-2)); box-shadow:0 12px 30px rgba(30,102,255,.35)}
+    .btn:active{transform:scale(.97)}
+    .btn-primary{
+      color:#fff; background:linear-gradient(135deg,var(--blue),var(--blue-2));
+      box-shadow:0 12px 30px rgba(30,102,255,.35);
+    }
     .btn-primary:hover{transform:translateY(-2px); box-shadow:0 16px 40px rgba(30,102,255,.4)}
-    .btn-ghost{color:#fff; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.25); backdrop-filter:blur(6px)}
+    .btn-ghost{
+      color:#eaf0ff; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.3); backdrop-filter:blur(8px);
+    }
     .btn-ghost:hover{transform:translateY(-2px); box-shadow:0 10px 26px rgba(0,0,0,.25)}
     .btn::before{
       content:""; position:absolute; inset:0; border-radius:inherit;
-      background:linear-gradient(120deg,transparent 0%,rgba(255,255,255,.25) 50%,transparent 100%);
+      background:linear-gradient(120deg,transparent 0%,rgba(255,255,255,.35) 50%,transparent 100%);
       transform:translateX(-120%); transition:transform .6s;
     }
     .btn:hover::before{ transform:translateX(120%) }
-    .ripple{ position:absolute; border-radius:50%; transform:scale(0); animation:ripple .6s linear; background:rgba(255,255,255,.45); pointer-events:none }
+    .ripple{ position:absolute; border-radius:50%; transform:scale(0); animation:ripple .6s linear; background:rgba(255,255,255,.45); pointer-events:none; z-index:0 }
     @keyframes ripple{ to{ transform:scale(10); opacity:0 } }
+    .btn-emoji{font-size:1.1rem; z-index:1}
+    .btn span{z-index:1; position:relative}
 
-    /* Sections */
+    .hero-badge-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;font-size:.8rem;color:#c7d6ff}
+    .hero-badge{
+      padding:4px 10px; border-radius:999px;
+      border:1px solid rgba(255,255,255,.25);
+      background:rgba(0,0,0,.18);
+    }
+
+    main{padding-top:70px}
+
     section{padding:70px 0}
     .container{max-width:1100px; margin:0 auto; padding:0 16px}
     .section-title{text-align:center; font-size:2rem; color:var(--text); margin-bottom:8px}
-    .section-lead{text-align:center; color:var(--muted); margin-bottom:26px}
+    .section-lead{text-align:center; color:var(--muted); margin-bottom:26px; font-size:.95rem}
 
-    /* Cards */
+    /* Fade-in sections */
+    .fade-section{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+    .fade-section.visible{opacity:1;transform:translateY(0)}
+
+    /* Cards + images */
     .cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px}
     .card{
-      background:#f8fbff; border-radius:16px; padding:18px;
-      box-shadow:0 6px 18px rgba(0,0,0,.05);
-      transition:transform .25s, opacity .5s; opacity:0;
+      background:var(--card); border-radius:18px; padding:14px 14px 18px;
+      box-shadow:0 8px 22px rgba(6,32,80,.05);
+      transition:transform .25s, box-shadow .25s, opacity .6s; opacity:0;
+      border:1px solid rgba(255,255,255,.7);
     }
     .card.show{opacity:1}
-    .card h3{margin:0 0 6px}
-    .card p{margin:0; color:var(--muted)}
-    .card:hover{transform:translateY(-8px)}
+    .card h3{margin:6px 0 6px; font-size:1.02rem}
+    .card p{margin:0; color:var(--muted); font-size:.9rem}
+    .card:hover{transform:translateY(-6px); box-shadow:0 14px 36px rgba(6,32,80,.12)}
+
+    .card-img{
+      width:100%;
+      height:150px;
+      object-fit:cover;
+      border-radius:14px;
+      display:block;
+    }
+
+    /* Why Rahasa badges */
+    .pill-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;font-size:.8rem}
+    .pill{
+      padding:4px 10px;border-radius:999px;
+      background:#e8f1ff;color:#26436b;
+      border:1px solid rgba(0,0,0,.04);
+    }
+
+    /* ABOUT layout with image */
+    .about-flex{
+      display:flex;
+      gap:24px;
+      align-items:center;
+      flex-wrap:wrap;
+      justify-content:space-between;
+    }
+    .about-text{
+      flex:1 1 290px;
+    }
+    .about-img{
+      flex:0 0 320px;
+      max-width:360px;
+      height:250px;
+      object-fit:cover;
+      border-radius:22px;
+      box-shadow:0 14px 40px rgba(6,32,80,.18);
+    }
 
     /* Footer */
-    footer{background:#0d2a52; color:#fff}
-    .footer-grid{display:grid; grid-template-columns:1.2fr .8fr; gap:16px}
-    .contact-card{background:#0f3567; border-radius:14px; padding:18px}
-    .contact-card form{display:grid; gap:10px}
-    .contact-card input,.contact-card select,.contact-card textarea{
-      width:100%; padding:10px; border-radius:10px; border:1px solid rgba(255,255,255,.2);
-      background:#0d2a52; color:#fff;
+    footer{background:#0d233f; color:#fff}
+    .footer-grid{display:grid; grid-template-columns:1.2fr .8fr; gap:18px; align-items:flex-start}
+    .contact-card{
+      background:linear-gradient(145deg,#102f5f,#0d274d);
+      border-radius:18px; padding:18px 18px 20px;
+      box-shadow:0 10px 32px rgba(0,0,0,.35);
+      border:1px solid rgba(255,255,255,.15);
     }
+    .contact-card h3{margin-top:0}
+    .contact-card form{display:grid; gap:10px; margin-top:10px}
+    .field-group{display:flex;gap:10px;flex-wrap:wrap}
+    .field{flex:1;min-width:130px;display:flex;flex-direction:column;gap:4px;font-size:.8rem;color:#d4e0ff}
+    .field label{opacity:.85}
+    .contact-card input,
+    .contact-card select,
+    .contact-card textarea{
+      width:100%; padding:9px 10px; border-radius:10px;
+      border:1px solid rgba(255,255,255,.22);
+      background:#0b233f; color:#fff; font-family:inherit; font-size:.85rem;
+    }
+    .contact-card textarea{resize:vertical;min-height:80px}
+    .contact-card input::placeholder,
+    .contact-card textarea::placeholder{color:rgba(220,230,255,.7)}
     .contact-card button{border:0}
-    .contact-card a{color:#fff; text-decoration:underline}
-    .copyright{padding:12px 0; border-top:1px solid rgba(255,255,255,.15); text-align:center; margin-top:14px}
+    .contact-card a{color:#c6d8ff; text-decoration:underline;font-size:.86rem}
+    .contact-card small{font-size:.75rem;color:#a9c0ff}
+    .contact-info p{margin:.1rem 0;font-size:.9rem}
+    .contact-info strong{display:inline-block;min-width:60px}
+
+    .copyright{
+      padding:10px 0 14px; border-top:1px solid rgba(255,255,255,.12);
+      text-align:center; margin-top:18px; font-size:.8rem; color:#c2cde8;
+    }
 
     /* Responsive */
+    @media(max-width:900px){
+      .hero-inner{align-items:center;text-align:center}
+      .hero h1{text-align:center;font-size:2.1rem}
+      .hero p{text-align:center;max-width:620px}
+      .hero-badge-row{justify-content:center}
+      .cta-buttons{justify-content:center}
+      .about-flex{justify-content:center}
+    }
+
     @media(max-width:860px){
-      .burger{display:inline-block}
+      .header-inner{
+        grid-template-columns:auto auto;
+        grid-template-rows:auto auto;
+        row-gap:8px;
+      }
       nav{
         display:none; position:absolute; left:16px; right:16px; top:64px;
-        background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:12px; padding:12px;
-        flex-direction:column; align-items:stretch; z-index:1100;
+        background:#ffffff; border:1px solid rgba(0,0,0,.06); border-radius:14px; padding:10px 12px;
+        flex-direction:column; align-items:stretch; z-index:1100; box-shadow:0 12px 35px rgba(0,0,0,.14);
       }
       nav.open{display:flex}
-      nav a{padding:10px 8px}
+      nav a{padding:8px 4px}
+      .burger{display:inline-block}
+      .controls{justify-content:flex-end}
+    }
+
+    @media(max-width:720px){
+      .hero{height:auto;min-height:92vh}
+      .hero-inner{padding:80px 16px 40px}
+      main{padding-top:68px}
+      section{padding:56px 0}
+      .footer-grid{grid-template-columns:1fr}
+      .about-img{width:100%;max-width:100%}
     }
   </style>
 </head>
@@ -140,10 +284,11 @@
   <!-- Header -->
   <header>
     <div class="header-inner">
-      <div class="logo" id="logo">asahar</div>
+      <div class="logo" id="logo" dir="ltr">Rahasa</div>
 
       <nav aria-label="main">
         <a href="#about" class="lang-text" data-fa="درباره ما" data-en="About Us">درباره ما</a>
+        <a href="#why" class="lang-text" data-fa="چرا Rahasa" data-en="Why Rahasa">چرا Rahasa</a>
         <a href="#study" class="lang-text" data-fa="تحصیل در اروپا" data-en="Study in Europe">تحصیل در اروپا</a>
         <a href="#work" class="lang-text" data-fa="کار در اروپا" data-en="Work in Europe">کار در اروپا</a>
         <a href="#residency" class="lang-text" data-fa="اقامت دائم" data-en="Permanent Residency">اقامت دائم</a>
@@ -153,7 +298,11 @@
       </nav>
 
       <div class="controls">
-        <span class="lang-switch" id="langSwitch" role="button" aria-label="Switch language">FA | EN</span>
+        <div class="lang-switch" id="langSwitch" role="button" aria-label="Switch language">
+          <span data-lang="fa" class="active">FA</span>
+          <span>|</span>
+          <span data-lang="en">EN</span>
+        </div>
         <button class="burger" aria-label="menu">☰</button>
       </div>
     </div>
@@ -165,89 +314,266 @@
       <video autoplay muted loop playsinline preload="auto" poster="hero-poster.jpg">
         <source src="hero.mp4" type="video/mp4" />
       </video>
-      <div class="hero-inner">
-        <h1 class="lang-text" data-fa="Rahasa — مسیر مطمئن به آینده‌ای در اروپا" data-en="Rahasa — Your Reliable Path to Europe">Rahasa — مسیر مطمئن به آینده‌ای در اروپا</h1>
-        <p class="lang-text" data-fa="تحصیل، کار و زندگی در بهترین کشورهای اروپایی با مشاوره تخصصی" data-en="Study, work and live in top European countries with expert guidance">تحصیل، کار و زندگی در بهترین کشورهای اروپایی با مشاوره تخصصی</p>
+      <div class="hero-inner fade-section">
+        <div class="hero-kicker lang-text"
+             data-fa="مسیر شفاف تا اروپا"
+             data-en="A Clear Path to Europe">
+          <span>⬤</span>
+          <span>Rahasa</span>
+          <span>•</span>
+          <span class="lang-text"
+                data-fa="تحصیلی، کاری، سرمایه‌گذاری"
+                data-en="Study, Work, Investment">
+            تحصیلی، کاری، سرمایه‌گذاری
+          </span>
+        </div>
+        <h1 class="lang-text"
+            data-fa="مسیر مطمئن به <span class='accent'>آینده‌ای در اروپا</span>"
+            data-en="Your Reliable Path to a <span class='accent'>Future in Europe</span>">
+          مسیر مطمئن به <span class="accent">آینده‌ای در اروپا</span>
+        </h1>
+        <p class="lang-text"
+           data-fa="از بورسیه‌های تحصیلی و ویزای کاری تا سرمایه‌گذاری در بیزینس‌های کوچک، Rahasa در تمام مراحل کنار شماست."
+           data-en="From scholarships and work visas to investing in small businesses, Rahasa guides you at every step.">
+          از بورسیه‌های تحصیلی و ویزای کاری تا سرمایه‌گذاری در بیزینس‌های کوچک، Rahasa در تمام مراحل کنار شماست.
+        </p>
+
         <div class="cta-buttons">
-          <a href="#contact" class="btn btn-primary lang-text" data-fa="درخواست مشاوره" data-en="Get Consultation">درخواست مشاوره</a>
-          <a href="#study" class="btn btn-ghost lang-text" data-fa="خدمات ما" data-en="Our Services">خدمات ما</a>
+          <a href="#contact" class="btn btn-primary lang-text"
+             data-fa="درخواست مشاوره رایگان"
+             data-en="Request Free Consultation">
+            <span class="btn-emoji">📞</span>
+            <span>درخواست مشاوره رایگان</span>
+          </a>
+          <a href="#study" class="btn btn-ghost lang-text"
+             data-fa="دیدن خدمات"
+             data-en="View Services">
+            <span class="btn-emoji">📘</span>
+            <span>دیدن خدمات</span>
+          </a>
+        </div>
+
+        <div class="hero-badge-row">
+          <div class="hero-badge lang-text"
+               data-fa="تمرکز بر اروپا؛ به‌ویژه ایتالیا، آلمان، فرانسه"
+               data-en="Focus on Europe; especially Italy, Germany, France">
+            تمرکز بر اروپا؛ به‌ویژه ایتالیا، آلمان، فرانسه
+          </div>
+          <div class="hero-badge lang-text"
+               data-fa="تجربه مستقیم زندگی و تحصیل در اروپا"
+               data-en="First-hand study & life experience in Europe">
+            تجربه مستقیم زندگی و تحصیل در اروپا
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- ABOUT -->
+    <!-- ABOUT with image -->
     <section id="about">
-      <div class="container">
-        <h2 class="section-title lang-text" data-fa="درباره Rahasa" data-en="About Rahasa">درباره Rahasa</h2>
-        <p class="section-lead lang-text" data-fa="Rahasa با هدف ساده‌سازی مسیر مهاجرت تحصیلی و کاری به اروپا تأسیس شده است. در تمام مراحل از انتخاب کشور و دانشگاه/کار تا ویزا و اقامت کنار شما هستیم." data-en="Rahasa was founded to simplify the path to studying and working in Europe. From choosing a country and university/job to visas and residency, we guide you end to end.">Rahasa با هدف ساده‌سازی مسیر مهاجرت تحصیلی و کاری به اروپا تأسیس شده است. در تمام مراحل از انتخاب کشور و دانشگاه/کار تا ویزا و اقامت کنار شما هستیم.</p>
+      <div class="container fade-section">
+        <div class="about-flex">
+          <div class="about-text">
+            <h2 class="section-title lang-text" data-fa="درباره Rahasa" data-en="About Rahasa">درباره Rahasa</h2>
+            <p class="section-lead lang-text"
+               data-fa="Rahasa با تمرکز بر مهاجرت تحصیلی، کاری و سرمایه‌گذاری به اروپا شکل گرفته؛ جایی که تجربه شخصی و تخصص حرفه‌ای کنار هم قرار می‌گیرند."
+               data-en="Rahasa specializes in study, work, and investment migration to Europe, combining personal experience with professional expertise.">
+              Rahasa با تمرکز بر مهاجرت تحصیلی، کاری و سرمایه‌گذاری به اروپا شکل گرفته؛ جایی که تجربه شخصی و تخصص حرفه‌ای کنار هم قرار می‌گیرند.
+            </p>
+          </div>
+          <img class="about-img" src="images/europe-city.jpg" alt="">
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY RAHASA -->
+    <section id="why">
+      <div class="container fade-section">
+        <h2 class="section-title lang-text" data-fa="چرا Rahasa؟" data-en="Why Rahasa?">چرا Rahasa؟</h2>
+        <p class="section-lead lang-text"
+           data-fa="ما فقط فرم پر نمی‌کنیم؛ برای هر پرونده، استراتژی جداگانه می‌چینیم."
+           data-en="We do not just fill forms; we build a tailored strategy for every case.">
+          ما فقط فرم پر نمی‌کنیم؛ برای هر پرونده، استراتژی جداگانه می‌چینیم.
+        </p>
+        <div class="cards">
+          <div class="card">
+            <img class="card-img" src="images/europe-universities.jpg" alt="">
+            <h3 class="lang-text" data-fa="تمرکز روی اروپا" data-en="Europe-Focused">تمرکز روی اروپا</h3>
+            <p class="lang-text"
+               data-fa="شناخت عمیق از سیستم‌های دانشگاهی و ویزایی کشورهای اروپایی، به‌ویژه ایتالیا، آلمان و فرانسه."
+               data-en="Deep understanding of European university and visa systems, especially Italy, Germany, and France.">
+              شناخت عمیق از سیستم‌های دانشگاهی و ویزایی کشورهای اروپایی، به‌ویژه ایتالیا، آلمان و فرانسه.
+            </p>
+            <div class="pill-row">
+              <span class="pill lang-text" data-fa="بورسیه‌ها" data-en="Scholarships">بورسیه‌ها</span>
+              <span class="pill lang-text" data-fa="ویزای تحصیلی" data-en="Study Visa">ویزای تحصیلی</span>
+            </div>
+          </div>
+          <div class="card">
+            <img class="card-img" src="images/clear-step-by-step-path.jpg" alt="">
+            <h3 class="lang-text" data-fa="مسیر شفاف و مرحله‌به‌مرحله" data-en="Clear, Step-by-Step Path">مسیر شفاف و مرحله‌به‌مرحله</h3>
+            <p class="lang-text"
+               data-fa="از ارزیابی اولیه تا پرواز، دقیق می‌دانید در هر مرحله چه کاری انجام می‌دهید و چه مدارکی لازم دارید."
+               data-en="From first assessment to flight, you know exactly what to do and which documents you need.">
+              از ارزیابی اولیه تا پرواز، دقیق می‌دانید در هر مرحله چه کاری انجام می‌دهید و چه مدارکی لازم دارید.
+            </p>
+            <div class="pill-row">
+              <span class="pill lang-text" data-fa="چک‌لیست اختصاصی" data-en="Custom checklists">چک‌لیست اختصاصی</span>
+              <span class="pill lang-text" data-fa="همراهی تا ورود" data-en="Support till arrival">همراهی تا ورود</span>
+            </div>
+          </div>
+          <div class="card">
+            <img class="card-img" src="images/financial-investment-view.jpg" alt="">
+            <h3 class="lang-text" data-fa="نگاه مالی و سرمایه‌گذاری" data-en="Financial & Investment View">نگاه مالی و سرمایه‌گذاری</h3>
+            <p class="lang-text"
+               data-fa="تحلیل هزینه‌ها، بازگشت سرمایه تحصیل و گزینه‌های سرمایه‌گذاری در بیزینس‌های کوچک اروپایی."
+               data-en="Cost analysis, study ROI, and options for investing in small European businesses.">
+              تحلیل هزینه‌ها، بازگشت سرمایه تحصیل و گزینه‌های سرمایه‌گذاری در بیزینس‌های کوچک اروپایی.
+            </p>
+            <div class="pill-row">
+              <span class="pill lang-text" data-fa="بیزینس‌های کوچک" data-en="Small businesses">بیزینس‌های کوچک</span>
+              <span class="pill lang-text" data-fa="سود هدف" data-en="Target returns">سود هدف</span>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- STUDY -->
     <section id="study">
-      <div class="container">
+      <div class="container fade-section">
         <h2 class="section-title lang-text" data-fa="تحصیل در اروپا" data-en="Study in Europe">تحصیل در اروپا</h2>
-        <p class="section-lead lang-text" data-fa="ویژهٔ رشته‌های مهندسی و پزشکی — از بورس تا خوابگاه." data-en="Focused on engineering & medicine — from scholarships to housing.">ویژهٔ رشته‌های مهندسی و پزشکی — از بورس تا خوابگاه.</p>
+        <p class="section-lead lang-text"
+           data-fa="ویژهٔ رشته‌های مهندسی، پزشکی و رشته‌های منتخب دیگر — از بورسیه تا خوابگاه و خدمات پس از ورود."
+           data-en="For engineering, medicine, and selected fields — from scholarships to housing and after-arrival services.">
+          ویژهٔ رشته‌های مهندسی، پزشکی و رشته‌های منتخب دیگر — از بورسیه تا خوابگاه و خدمات پس از ورود.
+        </p>
         <div class="cards">
-          <div class="card"><h3 class="lang-text" data-fa="بورسیه‌های تحصیلی" data-en="Scholarships">بورسیه‌های تحصیلی</h3><p class="lang-text" data-fa="جستجو و آماده‌سازی مدارک برای دریافت کمک‌هزینه‌ها در اروپا." data-en="Search and prepare documents to win European grants.">جستجو و آماده‌سازی مدارک برای دریافت کمک‌هزینه‌ها در اروپا.</p></div>
-          <div class="card"><h3 class="lang-text" data-fa="پذیرش دانشگاهی" data-en="Admissions">پذیرش دانشگاهی</h3><p class="lang-text" data-fa="انتخاب دانشگاه‌های کم‌هزینه/رایگان و ارسال اپلیکیشن حرفه‌ای." data-en="Select low-cost/free universities and submit a strong application.">انتخاب دانشگاه‌های کم‌هزینه/رایگان و ارسال اپلیکیشن حرفه‌ای.</p></div>
-          <div class="card"><h3 class="lang-text" data-fa="خدمات پس از ورود" data-en="After Arrival">خدمات پس از ورود</h3><p class="lang-text" data-fa="خوابگاه، بانک، بیمه و آشنایی با شهر و دانشگاه." data-en="Housing, bank, insurance, and city/university onboarding.">خوابگاه، بانک، بیمه و آشنایی با شهر و دانشگاه.</p></div>
+          <div class="card">
+            <img class="card-img" src="images\admissions.jpg" alt="">
+            <h3 class="lang-text" data-fa="بورسیه‌های تحصیلی" data-en="Scholarships">بورسیه‌های تحصیلی</h3>
+            <p class="lang-text" data-fa="جستجو و آماده‌سازی مدارک برای دریافت کمک‌هزینه‌ها در اروپا." data-en="Search and prepare documents to win European grants.">جستجو و آماده‌سازی مدارک برای دریافت کمک‌هزینه‌ها در اروپا.</p>
+          </div>
+          <div class="card">
+            <img class="card-img" src="images\scholarships.jpg" alt="">
+            <h3 class="lang-text" data-fa="پذیرش دانشگاهی" data-en="Admissions">پذیرش دانشگاهی</h3>
+            <p class="lang-text" data-fa="انتخاب دانشگاه‌های کم‌هزینه/رایگان و ارسال اپلیکیشن حرفه‌ای." data-en="Select low-cost/free universities and submit a strong application.">انتخاب دانشگاه‌های کم‌هزینه/رایگان و ارسال اپلیکیشن حرفه‌ای.</p>
+          </div>
+          <div class="card">
+            <img class="card-img" src="images\after-arrival.jpg" alt="">
+            <h3 class="lang-text" data-fa="خدمات پس از ورود" data-en="After Arrival">خدمات پس از ورود</h3>
+            <p class="lang-text" data-fa="خوابگاه، بانک، بیمه و آشنایی با شهر و دانشگاه." data-en="Housing, bank, insurance, and city/university onboarding.">خوابگاه، بانک، بیمه و آشنایی با شهر و دانشگاه.</p>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- WORK -->
     <section id="work">
-      <div class="container">
+      <div class="container fade-section">
         <h2 class="section-title lang-text" data-fa="کار در اروپا" data-en="Work in Europe">کار در اروپا</h2>
-        <p class="section-lead lang-text" data-fa="ویزای کاری، پیشنهاد شغلی و مسیر اقامت کاری." data-en="Work visas, job offers, and the path to work-based residency.">ویزای کاری، پیشنهاد شغلی و مسیر اقامت کاری.</p>
+        <p class="section-lead lang-text"
+           data-fa="ویزای کاری، پیشنهاد شغلی و مسیر اقامت کاری، با تمرکز بر مهندسی، IT و حوزه سلامت."
+           data-en="Work visas, job offers, and residency via work, focused on engineering, IT, and healthcare.">
+          ویزای کاری، پیشنهاد شغلی و مسیر اقامت کاری، با تمرکز بر مهندسی، IT و حوزه سلامت.
+        </p>
         <div class="cards">
-          <div class="card"><h3 class="lang-text" data-fa="ویزای کاری" data-en="Work Visa">ویزای کاری</h3><p class="lang-text" data-fa="تهیه چک‌لیست مدارک، رزرو سفارت و آمادگی مصاحبه." data-en="Checklists, embassy bookings, and interview prep.">تهیه چک‌لیست مدارک، رزرو سفارت و آمادگی مصاحبه.</p></div>
-          <div class="card"><h3 class="lang-text" data-fa="بازار کار" data-en="Job Market">بازار کار</h3><p class="lang-text" data-fa="تحلیل کشورها و مهارت‌های پرتقاضا—مهندسی، IT، سلامت." data-en="Country analysis & in-demand skills—engineering, IT, healthcare.">تحلیل کشورها و مهارت‌های پرتقاضا—مهندسی، IT، سلامت.</p></div>
-          <div class="card"><h3 class="lang-text" data-fa="رزومه و لینکدین" data-en="Resume & LinkedIn">رزومه و لینکدین</h3><p class="lang-text" data-fa="بهینه‌سازی رزومه/پروفایل برای کارفرمای اروپایی." data-en="Optimize CV/profile for European employers.">بهینه‌سازی رزومه/پروفایل برای کارفرمای اروپایی.</p></div>
+          <div class="card">
+            <img class="card-img" src="images/work-visa.jpg" alt="">
+            <h3 class="lang-text" data-fa="ویزای کاری" data-en="Work Visa">ویزای کاری</h3>
+            <p class="lang-text" data-fa="تهیه چک‌لیست مدارک، رزرو سفارت و آمادگی مصاحبه." data-en="Checklists, embassy bookings, and interview prep.">تهیه چک‌لیست مدارک، رزرو سفارت و آمادگی مصاحبه.</p>
+          </div>
+          <div class="card">
+            <img class="card-img" src="images/job-market.jpg" alt="">
+            <h3 class="lang-text" data-fa="بازار کار" data-en="Job Market">بازار کار</h3>
+            <p class="lang-text" data-fa="تحلیل کشورها و مهارت‌های پرتقاضا—مهندسی، IT، سلامت." data-en="Country analysis and in-demand skills: engineering, IT, healthcare.">تحلیل کشورها و مهارت‌های پرتقاضا—مهندسی، IT، سلامت.</p>
+          </div>
+          <div class="card">
+            <img class="card-img" src="images/resume-linkedin.jpg" alt="">
+            <h3 class="lang-text" data-fa="رزومه و لینکدین" data-en="Resume & LinkedIn">رزومه و لینکدین</h3>
+            <p class="lang-text" data-fa="بهینه‌سازی رزومه/پروفایل برای کارفرمای اروپایی." data-en="Optimize CV and profile for European employers.">بهینه‌سازی رزومه/پروفایل برای کارفرمای اروپایی.</p>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- RESIDENCY -->
     <section id="residency">
-      <div class="container">
+      <div class="container fade-section">
         <h2 class="section-title lang-text" data-fa="اقامت دائم" data-en="Permanent Residency">اقامت دائم</h2>
-        <p class="section-lead lang-text" data-fa="تبدیل ویزای موقت به اقامت دائمی با مشاوره حقوقی." data-en="Convert temporary visas into permanent residency with legal guidance.">تبدیل ویزای موقت به اقامت دائمی با مشاوره حقوقی.</p>
+        <p class="section-lead lang-text"
+           data-fa="تبدیل ویزای موقت به اقامت دائمی با مشاوره حقوقی و برنامه‌ریزی طولانی‌مدت."
+           data-en="Convert temporary visas into permanent residency with legal guidance and long-term planning.">
+          تبدیل ویزای موقت به اقامت دائمی با مشاوره حقوقی و برنامه‌ریزی طولانی‌مدت.
+        </p>
         <div class="cards">
-          <div class="card"><h3 class="lang-text" data-fa="مشاوره حقوقی" data-en="Legal Advisory">مشاوره حقوقی</h3><p class="lang-text" data-fa="بررسی پرونده و انتخاب بهترین مسیر قانونی اقامت." data-en="Case review and choosing the best legal route to residency.">بررسی پرونده و انتخاب بهترین مسیر قانونی اقامت.</p></div>
-          <div class="card"><h3 class="lang-text" data-fa="خانواده و همراه" data-en="Family & Dependents">خانواده و همراه</h3><p class="lang-text" data-fa="ویزای همراه، پیوست خانواده و حقوق مرتبط." data-en="Family reunification, dependents visas, and rights.">ویزای همراه، پیوست خانواده و حقوق مرتبط.</p></div>
-          <div class="card"><h3 class="lang-text" data-fa="مالیات و بیمه" data-en="Tax & Insurance">مالیات و بیمه</h3><p class="lang-text" data-fa="راهنمای مقررات پایه در کشور مقصد." data-en="Intro to tax and insurance rules in your host country.">راهنمای مقررات پایه در کشور مقصد.</p></div>
+          <div class="card">
+            <img class="card-img" src="images/legal-advisory.jpg" alt="">
+            <h3 class="lang-text" data-fa="مشاوره حقوقی" data-en="Legal Advisory">مشاوره حقوقی</h3>
+            <p class="lang-text" data-fa="بررسی پرونده و انتخاب بهترین مسیر قانونی اقامت." data-en="Case review and choosing the best legal route to residency.">بررسی پرونده و انتخاب بهترین مسیر قانونی اقامت.</p>
+          </div>
+          <div class="card">
+            <img class="card-img" src="images/family-dependents.jpg" alt="">
+            <h3 class="lang-text" data-fa="خانواده و همراه" data-en="Family & Dependents">خانواده و همراه</h3>
+            <p class="lang-text" data-fa="ویزای همراه، پیوست خانواده و حقوق مرتبط." data-en="Family reunification, dependents visas, and related rights.">ویزای همراه، پیوست خانواده و حقوق مرتبط.</p>
+          </div>
+          <div class="card">
+            <img class="card-img" src="images/tax-insurance.jpg" alt="">
+            <h3 class="lang-text" data-fa="مالیات و بیمه" data-en="Tax & Insurance">مالیات و بیمه</h3>
+            <p class="lang-text" data-fa="راهنمای مقررات پایه در کشور مقصد." data-en="Intro to tax and insurance rules in your host country.">راهنمای مقررات پایه در کشور مقصد.</p>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- INVESTMENT -->
     <section id="investment">
-      <div class="container">
+      <div class="container fade-section">
         <h2 class="section-title lang-text" data-fa="سرمایه‌گذاری در بیزینس‌های کوچک" data-en="Investing in Small Businesses">سرمایه‌گذاری در بیزینس‌های کوچک</h2>
-        <p class="section-lead lang-text" data-fa="پکیج‌های شفاف با سود هدف، مناسب کارآفرینان و سرمایه‌گذاران مهاجر — با ارزیابی ریسک و گزارش‌دهی دوره‌ای." data-en="Transparent packages with target returns—ideal for entrepreneurial migrants—with risk assessment and periodic reporting.">پکیج‌های شفاف با سود هدف، مناسب کارآفرینان و سرمایه‌گذاران مهاجر — با ارزیابی ریسک و گزارش‌دهی دوره‌ای.</p>
+        <p class="section-lead lang-text"
+           data-fa="پکیج‌های شفاف با سود هدف، مناسب کارآفرینان و سرمایه‌گذاران مهاجر — با ارزیابی ریسک و گزارش‌دهی دوره‌ای."
+           data-en="Transparent packages with target returns, for entrepreneurial migrants, with risk assessment and periodic reporting.">
+          پکیج‌های شفاف با سود هدف، مناسب کارآفرینان و سرمایه‌گذاران مهاجر — با ارزیابی ریسک و گزارش‌دهی دوره‌ای.
+        </p>
 
         <div class="cards">
-          <div class="card"><h3 class="lang-text" data-fa="فرنچایز و خرده‌فروشی" data-en="Franchise & Retail">فرنچایز و خرده‌فروشی</h3><p class="lang-text" data-fa="مدل‌های آماده با برند معتبر، مناسب ورود سریع و فرآیند اقامت." data-en="Ready-made models with reputable brands—fast entry and residency pathways.">مدل‌های آماده با برند معتبر، مناسب ورود سریع و فرآیند اقامت.</p></div>
-          <div class="card"><h3 class="lang-text" data-fa="کافه/رستوران کوچک" data-en="Small Café/Restaurant">کافه/رستوران کوچک</h3><p class="lang-text" data-fa="سرمایه اولیه کنترل‌شده و جریان نقدی ماهانه با مدیریت حرفه‌ای." data-en="Controlled initial capital and monthly cashflow with professional management.">سرمایه اولیه کنترل‌شده و جریان نقدی ماهانه با مدیریت حرفه‌ای.</p></div>
-          <div class="card"><h3 class="lang-text" data-fa="خدمات محلی" data-en="Local Services">خدمات محلی</h3><p class="lang-text" data-fa="بیزینس‌های خدماتی مثل لاوندرومات، تمیزکاری، تعمیرات — ریسک عملیاتی پایین‌تر." data-en="Service businesses like laundromats, cleaning, repairs—lower operational risk.">بیزینس‌های خدماتی مثل لاوندرومات، تمیزکاری، تعمیرات — ریسک عملیاتی پایین‌تر.</p></div>
+          <div class="card">
+            <img class="card-img" src="images/franchise.jpg" alt="">
+            <h3 class="lang-text" data-fa="فرنچایز و خرده‌فروشی" data-en="Franchise & Retail">فرنچایز و خرده‌فروشی</h3>
+            <p class="lang-text" data-fa="مدل‌های آماده با برند معتبر، مناسب ورود سریع و فرآیند اقامت." data-en="Ready-made models with reputable brands for fast entry and residency paths.">مدل‌های آماده با برند معتبر، مناسب ورود سریع و فرآیند اقامت.</p>
+          </div>
+          <div class="card">
+            <img class="card-img" src="images/cafe.jpg" alt="">
+            <h3 class="lang-text" data-fa="کافه/رستوران کوچک" data-en="Small Café/Restaurant">کافه/رستوران کوچک</h3>
+            <p class="lang-text" data-fa="سرمایه اولیه کنترل‌شده و جریان نقدی ماهانه با مدیریت حرفه‌ای." data-en="Controlled initial capital and monthly cashflow with professional management.">سرمایه اولیه کنترل‌شده و جریان نقدی ماهانه با مدیریت حرفه‌ای.</p>
+          </div>
+          <div class="card">
+            <img class="card-img" src="images/local-services.jpg" alt="">
+            <h3 class="lang-text" data-fa="خدمات محلی" data-en="Local Services">خدمات محلی</h3>
+            <p class="lang-text" data-fa="بیزینس‌های خدماتی مثل لاوندرومات، تمیزکاری، تعمیرات — ریسک عملیاتی پایین‌تر." data-en="Service businesses like laundromats, cleaning, and repairs with lower operational risk.">بیزینس‌های خدماتی مثل لاوندرومات، تمیزکاری، تعمیرات — ریسک عملیاتی پایین‌تر.</p>
+          </div>
         </div>
 
         <div class="cards" style="margin-top:16px">
           <div class="card">
+            <img class="card-img" src="images/growth-scenarios.jpg" alt="">
             <h3 class="lang-text" data-fa="نمونه سناریو سود هدف" data-en="Sample Target Return Scenarios">نمونه سناریو سود هدف</h3>
-            <p class="lang-text" data-fa="*اعداد صرفاً نمونه‌اند و تضمین‌شده نیستند؛ پس از ارزیابی بازار/مالی نهایی می‌شوند." data-en="*Numbers are examples only and not guaranteed; finalized after market/financial due diligence.">*اعداد صرفاً نمونه‌اند و تضمین‌شده نیستند؛ پس از ارزیابی بازار/مالی نهایی می‌شوند.</p>
+            <p class="lang-text" data-fa="*اعداد صرفاً نمونه‌اند و تضمین‌شده نیستند؛ پس از ارزیابی بازار/مالی نهایی می‌شوند." data-en="Numbers are examples only, not guaranteed; finalized after market and financial assessment.">*اعداد صرفاً نمونه‌اند و تضمین‌شده نیستند؛ پس از ارزیابی بازار/مالی نهایی می‌شوند.</p>
             <ul style="margin:8px 0 0 18px; line-height:1.8">
-              <li class="lang-text" data-fa="بسته پایه: هدف سود سالانه ۸–۱۲٪ با ریسک کم." data-en="Base package: target annual return 8–12% with lower risk.">بسته پایه: هدف سود سالانه ۸–۱۲٪ با ریسک کم.</li>
-              <li class="lang-text" data-fa="مدل رشد: هدف سود سالانه ۱۲–۱۸٪ با ریسک متوسط." data-en="Growth model: target annual return 12–18% with medium risk.">مدل رشد: هدف سود سالانه ۱۲–۱۸٪ با ریسک متوسط.</li>
-              <li class="lang-text" data-fa="سرمایه‌گذاری مشترک: تقسیم سود شفاف ماهانه + گزارش عملکرد." data-en="Co-investment: transparent monthly profit sharing + performance reports.">سرمایه‌گذاری مشترک: تقسیم سود شفاف ماهانه + گزارش عملکرد.</li>
+              <li class="lang-text" data-fa="بسته پایه: هدف سود سالانه ۸–۱۲٪ با ریسک کم." data-en="Base package: target 8–12% annual return with lower risk.">بسته پایه: هدف سود سالانه ۸–۱۲٪ با ریسک کم.</li>
+              <li class="lang-text" data-fa="مدل رشد: هدف سود سالانه ۱۲–۱۸٪ با ریسک متوسط." data-en="Growth model: target 12–18% annual return with medium risk.">مدل رشد: هدف سود سالانه ۱۲–۱۸٪ با ریسک متوسط.</li>
+              <li class="lang-text" data-fa="سرمایه‌گذاری مشترک: تقسیم سود شفاف ماهانه + گزارش عملکرد." data-en="Co-investment: transparent monthly profit sharing and performance reports.">سرمایه‌گذاری مشترک: تقسیم سود شفاف ماهانه + گزارش عملکرد.</li>
             </ul>
           </div>
           <div class="card">
+            <img class="card-img" src="images/consulting-team.jpg" alt="">
             <h3 class="lang-text" data-fa="خدمات ما در سرمایه‌گذاری" data-en="Our Investment Services">خدمات ما در سرمایه‌گذاری</h3>
-            <p class="lang-text" data-fa="ارزیابی بازار و ریسک، طرح کسب‌وکار، ثبت شرکت/مجوز، حسابداری و گزارش‌دهی." data-en="Market & risk assessment, business plan, company setup/licensing, accounting & reporting.">ارزیابی بازار و ریسک، طرح کسب‌وکار، ثبت شرکت/مجوز، حسابداری و گزارش‌دهی.</p>
-            <div class="cta-buttons"><a href="#contact" class="btn btn-primary lang-text" data-fa="درخواست جلسه سرمایه‌گذاری" data-en="Book Investment Session">درخواست جلسه سرمایه‌گذاری</a></div>
+            <p class="lang-text" data-fa="ارزیابی بازار و ریسک، طرح کسب‌وکار، ثبت شرکت/مجوز، حسابداری و گزارش‌دهی." data-en="Market and risk assessment, business planning, company setup, accounting and reporting.">ارزیابی بازار و ریسک، طرح کسب‌وکار، ثبت شرکت/مجوز، حسابداری و گزارش‌دهی.</p>
+            <div class="cta-buttons">
+              <a href="#contact" class="btn btn-primary lang-text" data-fa="درخواست جلسه سرمایه‌گذاری" data-en="Book Investment Session">
+                <span class="btn-emoji">💼</span>
+                <span>درخواست جلسه سرمایه‌گذاری</span>
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -255,13 +581,29 @@
 
     <!-- BLOG -->
     <section id="blog">
-      <div class="container">
+      <div class="container fade-section">
         <h2 class="section-title lang-text" data-fa="مقالات و بورسیه‌ها" data-en="Blog & Scholarships">مقالات و بورسیه‌ها</h2>
-        <p class="section-lead lang-text" data-fa="راهنماهای کاربردی، تجربه‌ها و فرصت‌های به‌روز." data-en="Practical guides, experiences, and up-to-date opportunities.">راهنماهای کاربردی، تجربه‌ها و فرصت‌های به‌روز.</p>
+        <p class="section-lead lang-text"
+           data-fa="راهنماهای کاربردی، تجربه‌های واقعی و فرصت‌های به‌روز بورسیه و ویزا."
+           data-en="Practical guides, real experiences and up-to-date scholarship and visa opportunities.">
+          راهنماهای کاربردی، تجربه‌های واقعی و فرصت‌های به‌روز بورسیه و ویزا.
+        </p>
         <div class="cards">
-          <div class="card"><h3 class="lang-text" data-fa="بورسیه‌های ۲۰۲۶ ایتالیا" data-en="Italy Scholarships 2026">بورسیه‌های ۲۰۲۶ ایتالیا</h3><p class="lang-text" data-fa="از DSU تا بورس دانشگاهی—شرایط و مدارک." data-en="From DSU to university grants—requirements and docs.">از DSU تا بورس دانشگاهی—شرایط و مدارک.</p></div>
-          <div class="card"><h3 class="lang-text" data-fa="پس از فارغ‌التحصیلی" data-en="Post-Graduation Options">پس از فارغ‌التحصیلی</h3><p class="lang-text" data-fa="ویزای جستجوی کار و تبدیل وضعیت در اروپا." data-en="Job-seeker visas & status conversion in Europe.">ویزای جستجوی کار و تبدیل وضعیت در اروپا.</p></div>
-          <div class="card"><h3 class="lang-text" data-fa="شهرهای مناسب مهندسی" data-en="Best Cities for Engineers">شهرهای مناسب مهندسی</h3><p class="lang-text" data-fa="بازار کار، هزینه‌ها و کیفیت زندگی." data-en="Job market, costs, and quality of life.">بازار کار، هزینه‌ها و کیفیت زندگی.</p></div>
+          <div class="card">
+            <img class="card-img" src="images/italy-scholarships.jpg" alt="">
+            <h3 class="lang-text" data-fa="بورسیه‌های ۲۰۲۶ ایتالیا" data-en="Italy Scholarships 2026">بورسیه‌های ۲۰۲۶ ایتالیا</h3>
+            <p class="lang-text" data-fa="از DSU تا بورس دانشگاهی—شرایط و مدارک." data-en="From DSU grants to university scholarships: requirements and documents.">از DSU تا بورس دانشگاهی—شرایط و مدارک.</p>
+          </div>
+          <div class="card">
+            <img class="card-img" src="images/post-graduation.jpg" alt="">
+            <h3 class="lang-text" data-fa="پس از فارغ‌التحصیلی" data-en="Post-Graduation Options">پس از فارغ‌التحصیلی</h3>
+            <p class="lang-text" data-fa="ویزای جستجوی کار و تبدیل وضعیت در اروپا." data-en="Job-seeker visas and status conversion in Europe.">ویزای جستجوی کار و تبدیل وضعیت در اروپا.</p>
+          </div>
+          <div class="card">
+            <img class="card-img" src="images/engineers-cities.jpg" alt="">
+            <h3 class="lang-text" data-fa="شهرهای مناسب مهندسی" data-en="Best Cities for Engineers">شهرهای مناسب مهندسی</h3>
+            <p class="lang-text" data-fa="بازار کار، هزینه‌ها و کیفیت زندگی." data-en="Job market, living costs and quality of life.">بازار کار، هزینه‌ها و کیفیت زندگی.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -270,31 +612,63 @@
   <!-- FOOTER / CONTACT -->
   <footer id="contact">
     <div class="container">
-      <div class="footer-grid">
+      <div class="footer-grid fade-section">
         <div class="contact-card">
           <h3 class="lang-text" data-fa="درخواست مشاوره" data-en="Consultation Request">درخواست مشاوره</h3>
-          <p class="lang-text" data-fa="فرم زیر را پر کنید؛ در اولین روز کاری پاسخ می‌دهیم." data-en="Fill the form; we reply on the next business day.">فرم زیر را پر کنید؛ در اولین روز کاری پاسخ می‌دهیم.</p>
+          <p class="lang-text"
+             data-fa="فرم زیر را پر کنید؛ در اولین روز کاری پاسخ می‌دهیم."
+             data-en="Fill the form; we reply on the next business day.">
+            فرم زیر را پر کنید؛ در اولین روز کاری پاسخ می‌دهیم.
+          </p>
           <form id="leadForm">
-            <input name="name" placeholder="نام و نام خانوادگی" required>
-            <input name="email" type="email" placeholder="ایمیل" required>
-            <select name="service">
-              <option class="lang-text" data-fa="تحصیلی" data-en="Study">تحصیلی</option>
-              <option class="lang-text" data-fa="کاری" data-en="Work">کاری</option>
-              <option class="lang-text" data-fa="اقامت" data-en="Residency">اقامت</option>
-              <option class="lang-text" data-fa="سرمایه‌گذاری" data-en="Investment">سرمایه‌گذاری</option>
-            </select>
-            <textarea name="message" rows="4" placeholder="توضیحات"></textarea>
-            <button type="submit" class="btn btn-primary lang-text" data-fa="ارسال درخواست" data-en="Send Request">ارسال درخواست</button>
+            <div class="field-group">
+              <div class="field">
+                <label class="lang-text" data-fa="نام و نام خانوادگی" data-en="Full name">نام و نام خانوادگی</label>
+                <input name="name" placeholder="مثلاً: سجاد عشقعلی" required>
+              </div>
+              <div class="field">
+                <label class="lang-text" data-fa="ایمیل" data-en="Email">ایمیل</label>
+                <input name="email" type="email" placeholder="you@example.com" required>
+              </div>
+            </div>
+            <div class="field-group">
+              <div class="field">
+                <label class="lang-text" data-fa="نوع خدمات" data-en="Service type">نوع خدمات</label>
+                <select name="service">
+                  <option class="lang-text" data-fa="تحصیلی" data-en="Study">تحصیلی</option>
+                  <option class="lang-text" data-fa="کاری" data-en="Work">کاری</option>
+                  <option class="lang-text" data-fa="اقامت" data-en="Residency">اقامت</option>
+                  <option class="lang-text" data-fa="سرمایه‌گذاری" data-en="Investment">سرمایه‌گذاری</option>
+                </select>
+              </div>
+            </div>
+            <div class="field">
+              <label class="lang-text" data-fa="توضیحات" data-en="Details">توضیحات</label>
+              <textarea name="message" rows="4" placeholder="مقطع، رشته، کشورهای مورد نظر یا بودجه‌ی حدودی را بنویسید."></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary lang-text"
+                    data-fa="ارسال درخواست"
+                    data-en="Send Request">
+              <span class="btn-emoji">📤</span>
+              <span>ارسال درخواست</span>
+            </button>
+            <small class="lang-text"
+                   data-fa="با ارسال فرم، اجازه تماس از طریق ایمیل/واتساپ را می‌دهم."
+                   data-en="By submitting, I agree to be contacted via email/WhatsApp.">
+              با ارسال فرم، اجازه تماس از طریق ایمیل/واتساپ را می‌دهم.
+            </small>
           </form>
         </div>
-        <div>
+        <div class="contact-info">
           <h4 class="lang-text" data-fa="راه‌های ارتباطی" data-en="Contact Info">راه‌های ارتباطی</h4>
-          <p class="lang-text" data-fa="تلفن: 086-42233200" data-en="Phone: 086-42233200">تلفن: 086-42233200</p>
-          <p><a href="mailto:rahasa.agency@outlook.com">rahasa.agency@outlook.com</a></p>
+          <p><strong class="lang-text" data-fa="تلفن:" data-en="Phone:">تلفن:</strong> 086-42233200</p>
+          <p><strong>Email:</strong> <a href="mailto:rahasa.agency@outlook.com">rahasa.agency@outlook.com</a></p>
           <p class="lang-text" data-fa="تورین، ایتالیا" data-en="Turin, Italy">تورین، ایتالیا</p>
         </div>
       </div>
-      <div class="copyright">© 2025 Rahasa — All rights reserved.</div>
+      <div class="copyright">
+        © 2025 Rahasa — All rights reserved.
+      </div>
     </div>
   </footer>
 
@@ -302,18 +676,29 @@
     // Mobile nav
     const burger = document.querySelector('.burger');
     const nav = document.querySelector('header nav');
-    if (burger && nav) { burger.addEventListener('click', () => nav.classList.toggle('open')); }
+    if (burger && nav) {
+      burger.addEventListener('click', () => nav.classList.toggle('open'));
+    }
 
-    // Language switch (FA | EN)
+    // Language switch
     const langSwitch = document.getElementById('langSwitch');
     let currentLang = 'fa';
+
     function applyLang(){
       document.documentElement.lang = currentLang === 'fa' ? 'fa' : 'en';
       document.documentElement.dir  = currentLang === 'fa' ? 'rtl' : 'ltr';
       document.querySelectorAll('.lang-text').forEach(el => {
-        if (el.dataset && el.dataset[currentLang] != null) el.textContent = el.dataset[currentLang];
+        if (el.dataset && el.dataset[currentLang] != null) {
+          el.innerHTML = el.dataset[currentLang];
+        }
       });
+      if (langSwitch){
+        langSwitch.querySelectorAll('span[data-lang]').forEach(sp=>{
+          sp.classList.toggle('active', sp.dataset.lang === currentLang);
+        });
+      }
     }
+
     if (langSwitch) {
       langSwitch.addEventListener('click', () => {
         currentLang = (currentLang === 'fa') ? 'en' : 'fa';
@@ -322,11 +707,16 @@
     }
     applyLang();
 
-    // Reveal cards on scroll
-    const io = new IntersectionObserver(entries => {
+    // Reveal sections & cards on scroll
+    const secObserver = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: .15 });
+    document.querySelectorAll('.fade-section').forEach(s => secObserver.observe(s));
+
+    const cardObserver = new IntersectionObserver(entries => {
       entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
     }, { threshold: .12 });
-    document.querySelectorAll('.card').forEach(c => io.observe(c));
+    document.querySelectorAll('.card').forEach(c => cardObserver.observe(c));
 
     // Buttons ripple
     document.querySelectorAll('.btn').forEach(btn => {
@@ -353,7 +743,7 @@
       setInterval(() => {
         chars.forEach((c,i) => c.classList.toggle('on', i === idx));
         idx = (idx + 1) % chars.length;
-      }, 350);
+      }, 360);
     }
 
     // Lead form (mailto)
